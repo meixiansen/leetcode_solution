@@ -11,5 +11,32 @@ Given nums = [2, 7, 11, 15], target = 9,
 Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 
-##1. Two Sum
+## 1. Two Sum
 
+
+```
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> map;
+        int i;
+         vector<int> result;
+        for(i=0;i<nums.size();i++)
+        {
+            int e = target-nums[i];
+            if(map.find(e)!=map.end())
+            {
+                result.push_back(i);
+                 result.push_back(map[e]);
+                 break;
+            }
+            else
+            {
+            map.insert(make_pair(nums[i],i));
+            }
+        }
+       return result;
+    }
+};
+
+```
