@@ -172,7 +172,20 @@ public:
 
 ## 3. Longest Substring Without Repeating Characters
 
+Given a string, find the length of the longest substring without repeating characters.
+
+Examples:
+
+Given "abcabcbb", the answer is "abc", which the length is 3.
+
+Given "bbbbb", the answer is "b", with the length of 1.
+
+Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+
 first AC
+
+
 ```
 class Solution {
 public:
@@ -210,3 +223,98 @@ public:
 };
 
 ```
+
+## 4. Median of Two Sorted Arrays
+
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+nums1 = [1, 3]
+nums2 = [2]
+
+The median is 2.0
+Example 2:
+nums1 = [1, 2]
+nums2 = [3, 4]
+
+The median is (2 + 3)/2 = 2.5
+
+
+Reference to MissMary's ideas 
+
+AC code 
+
+```
+  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int size1 = nums1.size(),size2 = nums2.size();
+        if (size1>size2) return findMedianSortedArrays(nums2,nums1);
+        int imin = 0,imax = size1;
+        int i= (imax+imin)/2,j=(size1 + size2 +1)/2-i;
+        int left = 0,right = 0;
+        if(size1==0)
+        {
+            if(size2==0)
+            {
+                return 0;
+            }
+            else if(size2==1)
+            {
+                return double(nums2[0]);
+            }
+            else
+            {
+                j = (1+size2)/2;
+                left = nums2[j-1];
+                right = nums2[j];
+            }
+        }
+        else if(size1==1)
+        {
+            if(size2==1)
+            {
+                return (nums2[0]+nums1[0])/2.0;
+            }
+            else{
+                int half = size2/2;
+                if (size2%2==0)
+                {
+                    if(nums2[half]<=nums1[0]) return nums2[half];
+                    if(nums2[half-1]>=nums1[0]) return nums2[half-1];
+                    else return nums1[0];
+                }
+                if(size2%2==1)
+                {
+                    if(nums2[half-1]<nums1[0]&&nums2[half+1]>nums1[0])    return (nums2[half]+nums1[0])/2.0;
+                    else if(nums2[half-1]>nums1[0]) return (nums2[half]+nums2[half-1])/2.0;
+                    else if(nums2[half+1]<nums1[0]) return (nums2[half]+nums2[half+1])/2.0;
+                }
+            }
+        }
+        else{
+            while(imin<=imax)
+            {
+                i = (imax+imin)/2;
+                j = (size1 + size2 +1)/2-i;
+                cout<<imin<<" "<<i<<" "<<j<<" "<<imax<<endl;
+                if(i<size1&&nums2[j -1]>nums1[i]) imin = i+1;
+                else  if(i>0&&nums1[i -1]>nums2[j]){ imax = i-1; }
+                else if(i==0&&j<size2) {left = nums2[j-1];right= min(nums1[i],nums2[j]);break;}
+                else if(i==0&&j==size2) {left = nums2[j-1];right= nums1[i];break;}
+                else if(i==size1&&j>0) {left = max(nums2[j-1],nums1[i-1]);right= nums2[j];break;}
+                else if(i==size1&&j==0) {left = nums1[i-1];right= nums2[j];break;}
+                else  if(nums2[j -1]<=nums1[i]&&nums1[i -1]<=nums2[j])
+                {
+                    left = max(nums2[j -1],nums1[i -1]);right = min(nums1[i],nums2[j]);break;
+                }
+            }
+        }
+        double result;
+        if ((size1+size2)%2==0) {result= (left+right)/2.0;  }
+        if ((size1+size2)%2==1) result = left;
+        return result;
+    }
+```
+
+
