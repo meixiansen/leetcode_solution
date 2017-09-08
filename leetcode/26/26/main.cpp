@@ -19,9 +19,10 @@ public:
     {
         unordered_map<int,int> m;
         int num = 0;
+        int j = 0;
         for(int i=0;i<nums.size();i++)
         {
-            if(m.find(nums[i])==m.end()) {m[nums[i]]=1;num++;}
+            if(m.find(nums[i])==m.end()) {m[nums[i]]=1;num++;nums[j] =nums[i];j++; }
         }
         return num;
     }
@@ -54,4 +55,8 @@ int main()
     vector<int> nums = {1,1,2,2,4,5,6,7,8,9,9};
     Solution s;
     cout<<s.removeDuplicates(nums)<<endl;
+    for(int i=0;i<nums.size();i++)
+    {
+        cout<<nums[i]<<endl;
+    }
 }
