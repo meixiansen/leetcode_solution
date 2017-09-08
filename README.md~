@@ -332,6 +332,7 @@ otice that the reversed integer might overflow
 
 AC code
 
+
 ```
 int reverse(int x) {
         const int int_thre = 1147483647;
@@ -361,5 +362,3 @@ int reverse(int x) {
     }
 ```
 
-```
-```

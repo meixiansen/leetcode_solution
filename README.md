@@ -320,7 +320,8 @@ AC code
 ```
 
 
-//7. Reverse Integer
+##7. Reverse Integer
+
 //Reverse digits of an integer.
 
 //Example1: x = 123, return 321
